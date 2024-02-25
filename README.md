@@ -1,1 +1,2 @@
-# ExoAtlas-Explorer
+# THREE.js Earth scene for ExoAtlas
+
