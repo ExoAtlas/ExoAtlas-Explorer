@@ -22,7 +22,7 @@ new OrbitControls(camera, renderer.domElement);
 const loader = new THREE.TextureLoader();
 const geometry = new THREE.SphereGeometry(1, 720, 360);
 const material = new THREE.MeshStandardMaterial({
-  map: loader.load("./textures/earth/earth_texture_21k.jpg"),
+  map: loader.load("./textures/earth/earth_texture_5k.jpg"),
   specularMap: loader.load("./textures/earth/earth_spec_1k.jpg"),
 });
 const EarthMesh = new THREE.Mesh(geometry, material);
