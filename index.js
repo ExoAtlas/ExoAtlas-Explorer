@@ -1,5 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from 'jsm/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'jsm/renderers/CSS2DRenderer.js';
+import { GUI } from 'jsm/libs/lil-gui.module.min.js';
 import getStarfield from "./src/getStarfield.js";
 import { getFresnelMat } from "./src/getFresnelMat.js";
 
@@ -13,16 +15,38 @@ const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(w, h);
 document.body.appendChild(renderer.domElement);
 
+//GUI Setup
+let gui;
+//let camera, scene, renderer, labelRenderer;
+const layers = {
+  'Toggle Name': function () {camera.layers.toggle(0);},
+  'Toggle Mass': function () {camera.layers.toggle(1);},
+  'Enable All': function () {camera.layers.enableAll();},
+  'Disable All': function () {camera.layers.disableAll();},
+}
+
+
+//CSS2DRenderer Setup
+//const labelRenderer = new CSS2DRenderer();
+//labelRenderer.setSize(window.innerWidth, window.innerHeight);
+//labelRenderer.domElement.style.position = 'absolute';
+//labelRenderer.domElement.style.top = '0px';
+//document.body.appendChild(labelRenderer.domElement);
+
+
+
 //Earth Geometry
 const earthGroup = new THREE.Group();
 earthGroup.rotation.z = -23.4 * Math.PI / 180;
 earthGroup.position.set(0,0,0)
 scene.add(earthGroup);
-new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.minDistance = 1.5;
+controls.maxDistance = 10;
 const loader = new THREE.TextureLoader();
 const geometry = new THREE.SphereGeometry(1, 720, 360);
 const material = new THREE.MeshStandardMaterial({
-  map: loader.load("./textures/earth/earth_texture_21k.jpg"),
+  map: loader.load("./textures/earth/earth_texture_5k.jpg"),
   specularMap: loader.load("./textures/earth/earth_spec_1k.jpg"),
 });
 const EarthMesh = new THREE.Mesh(geometry, material);
