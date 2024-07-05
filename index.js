@@ -70,7 +70,7 @@ scene.add(sun);
 // Starry Background
 const starGeometry = new THREE.SphereGeometry(17951744484, 720, 360);
 const starMaterial = new THREE.MeshBasicMaterial({
-    map: loader.load("./textures/deepstar/starmap_16k.jpg"),
+    map: loader.load("./textures/deepstar/starmap_8k.jpg"),
     side: THREE.BackSide,
     transparent: true,
     color: 0x444444, 
