@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { OrbitControls } from 'jsm/controls/OrbitControls.js';
-import { GUI } from 'jsm/libs/lil-gui.module.min.js';
 import { EffectComposer } from 'jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'jsm/postprocessing/UnrealBloomPass.js';
@@ -22,7 +21,7 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 document.body.appendChild(renderer.domElement);
 const controls = new OrbitControls(camera, renderer.domElement);
-controls.minDistance = 700.000;
+controls.minDistance = 7000.000;
 controls.maxDistance = 17951744.484;
 const loader = new THREE.TextureLoader();
 
@@ -70,7 +69,7 @@ scene.add(sun);
 // Starry Background
 const starGeometry = new THREE.SphereGeometry(17951744484, 720, 360);
 const starMaterial = new THREE.MeshBasicMaterial({
-    map: loader.load("./textures/deepstar/starmap_8k.jpg"),
+    map: loader.load("./textures/deepstar/starmap_16k.jpg"),
     side: THREE.BackSide,
     transparent: true,
     color: 0x444444, 
@@ -91,14 +90,6 @@ planetsData.forEach(planetData => {
     planetMeshes.push(planet); //add planet mesh to array
     
     
-    
-    //OLD SPRITES
-    //const label = createLabel(planetData.name);
-    //label.position.set(planetData.position[0], planetData.position[1] + 1000, planetData.position[2]); // Adjust the position as needed
-    //label.visible = false; // Initially hide the label
-    //planetLabels.push(label);
-    //scene.add(label);
-
     //CSS3DLABELS
     const labelDiv = document.createElement('div');
     labelDiv.className = 'label';
@@ -123,14 +114,14 @@ planetsData.forEach(planetData => {
 
 
 // Add AmbientLight to soften the shadows
-const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
+const ambientLight = new THREE.AmbientLight(0x404040, 0.5); // soft white light
 scene.add(ambientLight);
 
 
 
 
 // Add PointLight at the center of the scene
-const pointLight = new THREE.PointLight(0xffffff, 100000000000, 17951744484);
+const pointLight = new THREE.PointLight(0xfdfbd3, 100000000000*.5, 17951744484);
 pointLight.castShadow = true;
 pointLight.shadowCameraVisible = true;
 pointLight.shadowBias = 0.00001;
@@ -139,44 +130,6 @@ pointLight.shadowMapWidth = 2048;
 pointLight.shadowMapHeight = 2048;
 pointLight.position.set(0, 0, 0);
 scene.add(pointLight);
-
-
-//--------------------------Error here somehwere
-//Create Label Function
-//const createLabel = (text) => {
-    //const canvas = document.createElement('canvas');
-    //const context = canvas.getContext('2d');
-    //context.font = '24px Arial';
-    //const textWidth = context.measureText(text).width;
-    //canvas.width = textWidth;
-    //canvas.height = 30; // Adjust as needed
-    //context.font = '24px Arial';
-    //context.fillStyle = 'white';
-    //context.fillText(text, 0, 24);
-    //const texture = new THREE.CanvasTexture(canvas);
-    //const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
-    //const sprite = new THREE.Sprite(spriteMaterial);
-    //sprite.scale.set(canvas.width / 10, canvas.height / 10, 1);
-    //return sprite;
-//};
-
-
-//function createLabel(name) {
-    //const canvas = document.createElement('canvas');
-    //const context = canvas.getContext('2d');
-    //context.font = 'Bold 40px Arial';
-    //context.fillStyle = 'rgba(255, 255, 255, 1.0)';
-    //context.fillText(name, 0, 40);
-    //const texture = new THREE.CanvasTexture(canvas);
-    //const material = new THREE.SpriteMaterial({ map: texture, transparent: true });
-    //const sprite = new THREE.Sprite(material);
-    //sprite.scale.set(canvas.width * 50, canvas.height * 50, 1); // Adjust scale based on your needs
-    //return sprite;
-//}
-
-
-
-
 
 
 //RAYCASTING
@@ -190,48 +143,48 @@ function onMouseMove(event) {
 }
 
 
-// GUI Setup
-const gui = new GUI();
+//DATE AND TIME FOR GUI
 const timeParams = {
     currentDate: new Date().toISOString().slice(0, 10),
     currentTime: new Date().toISOString().slice(11, 19),
-    live: true, // Default to live time
-    timeStep: 1 // Default to 1x speed
-};
-
-const timeStepOptions = { '1x': 1, '2x': 2, '4x': 4, '10x': 10, '100x': 100, '1000x': 1000, '10000x': 10000 };
-
-gui.add(timeParams, 'currentDate').name('Current Date').listen().onChange(updateTimeFromGUI);
-gui.add(timeParams, 'currentTime').name('Current Time (UTC)').listen().onChange(updateTimeFromGUI);
-gui.add(timeParams, 'live').name('Live Update').onChange(value => {
-    if (value) {
-        setToLiveTime();
-    }
-});
-gui.add(timeParams, 'timeStep', timeStepOptions).name('Time Step').onChange(updateTimeFromGUI);
-
-
-// Layers GUI
-function setToLiveTime() {
+    live: true,
+    timeStep: 1
+  };
+  
+  function setToLiveTime() {
     const now = new Date();
     timeParams.currentDate = now.toISOString().slice(0, 10);
     timeParams.currentTime = now.toISOString().slice(11, 19);
     lastUpdateTime = now;
-}
-
-function updateCurrentTime() {
-    const now = new Date();
-    timeParams.currentDate = now.toISOString().slice(0, 10);
-    timeParams.currentTime = now.toISOString().slice(11, 19);
-}
-
-function updateTimeFromGUI() {
-    const newDateTime = new Date(`${timeParams.currentDate}T${timeParams.currentTime}Z`);
+  }
+  
+  function updateTimeFromGUI() {
+    const newDateTime = new Date(`${timeParams.currentDate} ${timeParams.currentTime}`);
     lastUpdateTime = newDateTime;
-}
+  }
+  
+  function updateTimerDisplay() {
+    const timerElement = document.getElementById('timer');
+    if (timerElement) {
+      timerElement.textContent = `${timeParams.currentDate} ${timeParams.currentTime} UTC`;
+    }
+  }
+  
 
-let previousTime = performance.now();
-let lastUpdateTime = new Date();
+  function resetToLive() {
+    setToLiveTime();
+    timeParams.timeStep = 1;
+    controls.reset();
+    camera.position.set(696.340 * 200, 696.340 * 200, 696.340 * 400);
+    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    controls.minDistance = 7000.000;
+    updateActiveButton('speed-1x');
+  }
+
+
+
+  let previousTime = performance.now();
+  let lastUpdateTime = new Date();
 
 
 
@@ -239,49 +192,43 @@ let lastUpdateTime = new Date();
 const animate = () => {
     requestAnimationFrame(animate);
     const currentTime = performance.now();
-    const deltaTime = (currentTime - previousTime) / 1000; // Convert to seconds
+    const deltaTime = (currentTime - previousTime) / 1000;
     previousTime = currentTime;
     const adjustedDeltaTime = deltaTime * timeParams.timeStep;
-
+  
     if (timeParams.live) {
-        const newUpdateTime = new Date(lastUpdateTime.getTime() + adjustedDeltaTime * 1000);
-        timeParams.currentDate = newUpdateTime.toISOString().slice(0, 10);
-        timeParams.currentTime = newUpdateTime.toISOString().slice(11, 19);
-        lastUpdateTime = newUpdateTime;
+      const newUpdateTime = new Date(lastUpdateTime.getTime() + adjustedDeltaTime * 1000);
+      timeParams.currentDate = newUpdateTime.toISOString().slice(0, 10);
+      timeParams.currentTime = newUpdateTime.toISOString().slice(11, 19);
+      lastUpdateTime = newUpdateTime;
     }
-    
-    // Update raycaster with camera and mouse positions
+  
+    updateTimerDisplay();
+  
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObjects(planetMeshes);
-    
-    // Hide all orbits and labels initially
-    orbitMeshes.forEach(orbitarray => orbitarray.visible = false);
-    planetLabels.forEach(label => label.element.style.display = 'none');
-    
+  
+    orbitMeshes.forEach(orbitarray => orbitarray.visible = true);
+    planetLabels.forEach(label => label.element.style.display = 'none'); //use 'none' to hide at start
+  
     if (intersects.length > 0) {
-        // Get the first intersected object
-        const intersectedObject = intersects[0].object;
-    
-        // Find the corresponding orbit and make it visible
-        const index = planetMeshes.indexOf(intersectedObject);
-        if (index !== -1) {
-            orbitMeshes[index].visible = true;
-            planetLabels[index].element.style.display = 'block';
-        }
-        }
-    
-
-
-    // Manage label visibility
+      const intersectedObject = intersects[0].object;
+      const index = planetMeshes.indexOf(intersectedObject);
+      if (index !== -1) {
+        orbitMeshes[index].visible = true;
+        planetLabels[index].element.style.display = 'block';
+      }
+    }
+  
     planetLabels.forEach((label, index) => {
-        if (intersects.length > 0 && intersects[0].object === planetMeshes[index]) {
-            scene.add(label); // Add label only if it's intersected and not already added
-            orbitMeshes[index].visible = true;
-        } else {
-            if (scene.children.includes(label)) {
-                scene.remove(label); // Remove label if it's not intersected
-            }
+      if (intersects.length > 0 && intersects[0].object === planetMeshes[index]) {
+        scene.add(label);
+        orbitMeshes[index].visible = true;
+      } else {
+        if (scene.children.includes(label)) {
+          scene.remove(label);
         }
+      }
     });
 
 
@@ -298,12 +245,137 @@ animate();
 
 
 // Handle window resize
-window.addEventListener("resize", () => {
+window.addEventListener('resize', onWindowResize, false);
+function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
   bloomComposer.setSize(window.innerWidth, window.innerHeight);
   labelRenderer.setSize(window.innerWidth, window.innerHeight);
-},
-false
-);
+};
+
+
+
+
+//EVENT LISTENERS FOR TIMER FUNCTIONALITY
+
+
+// Function to reset all buttons and set the play button as active
+function resetButtons() {
+  const buttons = document.querySelectorAll("#playmenu button");
+  // Remove active class from all buttons
+  buttons.forEach(button => button.classList.remove("active"));
+  // Add active class to the play button
+  document.getElementById("play").classList.add("active");
+}
+
+// Add event listener to the reset button
+document.getElementById("resetbutton").addEventListener("click", resetButtons);
+document.getElementById('resetbutton').addEventListener('click', () => {
+  resetToLive();
+});
+
+
+// Function to handle button click and ensure only one button is active at a time
+function handleButtonClick(event) {
+  const buttons = document.querySelectorAll("#playmenu button");
+  // Remove active class from all buttons
+  buttons.forEach(button => button.classList.remove("active"));
+  // Add active class to the clicked button
+  event.target.classList.add("active");
+}
+
+// Add event listeners to all buttons
+document.getElementById("rewind").addEventListener("click", handleButtonClick);
+document.getElementById("reverse").addEventListener("click", handleButtonClick);
+document.getElementById("pause").addEventListener("click", handleButtonClick);
+document.getElementById("play").addEventListener("click", handleButtonClick);
+document.getElementById("fastforward").addEventListener("click", handleButtonClick);
+
+
+
+document.getElementById('rewind').addEventListener('click', () => {
+  timeParams.timeStep = -1000;
+});
+document.getElementById('reverse').addEventListener('click', () => {
+  timeParams.timeStep = -1;
+});
+document.getElementById('pause').addEventListener('click', () => {
+  timeParams.timeStep = 0;
+});
+document.getElementById('play').addEventListener('click', () => {
+  timeParams.timeStep = 1;
+});
+document.getElementById('fastforward').addEventListener('click', () => {
+  timeParams.timeStep = 1000;
+});
+
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+  dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+      dropdownContent.style.display = "none";
+    } else {
+      dropdownContent.style.display = "block";
+    }
+  });
+}
+
+
+//SLIDER STEPS
+const slider = document.getElementById("mySlider");
+const output = document.getElementById("sliderValue");
+const steps = [1, 10, 100, 1000, 10000]; // Define your custom steps here
+
+slider.oninput = function() {
+    output.textContent = steps[this.value];
+}
+
+// Initialize with the default value
+output.textContent = steps[slider.value];
+
+
+
+// Function to center the camera on a planet and update orbit controls target
+function centerCameraOnPlanet(planetPosition) {
+    // Add an offset to the camera position to ensure it's not inside the planet
+    const offset = 0;  // Adjust this value as needed
+    const targetPosition = new THREE.Vector3(...planetPosition);
+    const direction = new THREE.Vector3().subVectors(camera.position, targetPosition);
+    const newPosition = targetPosition.add(direction.multiplyScalar(offset));
+
+    camera.position.copy(newPosition);
+    camera.lookAt(targetPosition);
+    controls.target.copy(targetPosition);  // Update the orbit controls target
+    controls.update();
+}
+
+// Function to populate dropdown with planet names
+function populateDropdown() {
+    const planetDropdownBtn = Array.from(document.getElementsByClassName('dropdown-btn'))
+        .find(button => button.textContent.trim() === 'PLANETS');
+    
+    if (planetDropdownBtn) {
+        const planetDropdownContainer = planetDropdownBtn.nextElementSibling;
+        planetsData.forEach((planetData, index) => {
+            const planetLink = document.createElement('a');
+            planetLink.href = "#";
+            planetLink.textContent = planetData.name;
+            planetLink.addEventListener('click', () => {
+                centerCameraOnPlanet(planetData.position);
+                controls.minDistance = planetData.radius*3;
+            });
+            planetDropdownContainer.appendChild(planetLink);
+        });
+    }
+}
+
+// Call the function to populate the dropdown
+populateDropdown();
+
+
+
