@@ -2,21 +2,28 @@
 
 export const planetsData = [
     {
-        name: 'Mercury',
-        radius: 696.340,
-        texture: './textures/moon/moon_texture_8k.jpg',
-        position: [34764.07179, 5561.23510, 29649.36324],  // y, z, x 
+        name: 'MERCURY',
+        radius: 2.4397,
+        texture: './textures/mercury/mercury_texture_4k.jpg',
+        position: [42932, 5496, -21666],  // y, z, x
+        rotationalspeed: 4, 
     },
     {
-        name: 'Venus',
-        radius: 696.340,
-        texture: './textures/moon/moon_texture_8k.jpg',
-        position: [-52422.07681, 4692.54660, -93707.26564],
+        name: 'VENUS',
+        radius: 6.0518,
+        texture: './textures/venus/venus_texture_4k.jpg',
+        position: [-72022, -5595, 80624],
     },
     {
-        name: 'Earth',
-        radius: 696.340,
-        texture: './textures/moon/moon_texture_8k.jpg',
-        position: [143389.69140, -0.03832, -32822.30413],
+        name: 'EARTH',
+        radius: 6.371,
+        texture: './textures/earth/earth_texture_5k.jpg',
+        position: [-8760.2093, 85, -149455],
+    },
+    {
+        name: 'MARS',
+        radius: 3.3895,
+        texture: './textures/mars/mars_texture_12k.jpg',
+        position: [-165217.8, -6503.8, 126535.0],
     },
 ];
