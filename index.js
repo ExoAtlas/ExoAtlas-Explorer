@@ -11,7 +11,7 @@ import { CSS2DRenderer, CSS2DObject } from "jsm/renderers/CSS2DRenderer.js";
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 17951744.484);
 camera.position.y = 696.340 * 200;
-camera.position.z = 696.340 * 400;
+camera.position.z = 696.340 * 500;
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.autoClear = false;
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -121,7 +121,7 @@ scene.add(ambientLight);
 
 
 // Add PointLight at the center of the scene
-const pointLight = new THREE.PointLight(0xfdfbd3, 100000000000*.5, 17951744484);
+const pointLight = new THREE.PointLight(0xfdfbd3, 100000000000*.3, 17951744484);
 pointLight.castShadow = true;
 pointLight.shadowCameraVisible = true;
 pointLight.shadowBias = 0.00001;
@@ -132,59 +132,46 @@ pointLight.position.set(0, 0, 0);
 scene.add(pointLight);
 
 
-//RAYCASTING
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector3();
-window.addEventListener('mousemove', onMouseMove, false);
-function onMouseMove(event) {
-    // Normalize mouse coordinates
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-}
-
-
 //DATE AND TIME FOR GUI
 const timeParams = {
-    currentDate: new Date().toISOString().slice(0, 10),
-    currentTime: new Date().toISOString().slice(11, 19),
-    live: true,
-    timeStep: 1
-  };
+  currentDate: new Date().toISOString().slice(0, 10),
+  currentTime: new Date().toISOString().slice(11, 19),
+  live: true,
+  timeStep: 1
+};
+
+function setToLiveTime() {
+  const now = new Date();
+  timeParams.currentDate = now.toISOString().slice(0, 10);
+  timeParams.currentTime = now.toISOString().slice(11, 19);
+  lastUpdateTime = now;
+}
+
+function updateTimeFromGUI() {
+  const newDateTime = new Date(`${timeParams.currentDate} ${timeParams.currentTime}`);
+  lastUpdateTime = newDateTime;
+}
   
-  function setToLiveTime() {
-    const now = new Date();
-    timeParams.currentDate = now.toISOString().slice(0, 10);
-    timeParams.currentTime = now.toISOString().slice(11, 19);
-    lastUpdateTime = now;
+function updateTimerDisplay() {
+  const timerElement = document.getElementById('timer');
+  if (timerElement) {
+    timerElement.textContent = `${timeParams.currentDate} ${timeParams.currentTime} UTC`;
   }
-  
-  function updateTimeFromGUI() {
-    const newDateTime = new Date(`${timeParams.currentDate} ${timeParams.currentTime}`);
-    lastUpdateTime = newDateTime;
-  }
-  
-  function updateTimerDisplay() {
-    const timerElement = document.getElementById('timer');
-    if (timerElement) {
-      timerElement.textContent = `${timeParams.currentDate} ${timeParams.currentTime} UTC`;
-    }
-  }
+}
   
 
-  function resetToLive() {
-    setToLiveTime();
-    timeParams.timeStep = 1;
-    controls.reset();
-    camera.position.set(696.340 * 200, 696.340 * 200, 696.340 * 400);
-    camera.lookAt(new THREE.Vector3(0, 0, 0));
-    controls.minDistance = 7000.000;
-    updateActiveButton('speed-1x');
-  }
+function resetToLive() {
+  setToLiveTime();
+  timeParams.timeStep = 1;
+  controls.reset();
+  camera.position.set(696.340 * 200, 696.340 * 200, 696.340 * 400);
+  camera.lookAt(new THREE.Vector3(0, 0, 0));
+  controls.minDistance = 7000.000;
+  updateActiveButton('speed-1x');
+}
 
-
-
-  let previousTime = performance.now();
-  let lastUpdateTime = new Date();
+let previousTime = performance.now();
+let lastUpdateTime = new Date();
 
 
 
@@ -204,32 +191,6 @@ const animate = () => {
     }
   
     updateTimerDisplay();
-  
-    raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(planetMeshes);
-  
-    orbitMeshes.forEach(orbitarray => orbitarray.visible = true);
-    planetLabels.forEach(label => label.element.style.display = 'none'); //use 'none' to hide at start
-  
-    if (intersects.length > 0) {
-      const intersectedObject = intersects[0].object;
-      const index = planetMeshes.indexOf(intersectedObject);
-      if (index !== -1) {
-        orbitMeshes[index].visible = true;
-        planetLabels[index].element.style.display = 'block';
-      }
-    }
-  
-    planetLabels.forEach((label, index) => {
-      if (intersects.length > 0 && intersects[0].object === planetMeshes[index]) {
-        scene.add(label);
-        orbitMeshes[index].visible = true;
-      } else {
-        if (scene.children.includes(label)) {
-          scene.remove(label);
-        }
-      }
-    });
 
 
     camera.layers.set(1);
@@ -237,10 +198,9 @@ const animate = () => {
     renderer.clearDepth();
     camera.layers.set(0);
     renderer.render(scene, camera);
-    if (intersects.length > 0) {
-        labelRenderer.render(scene, camera); // Render labels only if there's an intersection
-    }
+ 
   };
+  
 animate();
 
 
@@ -257,8 +217,9 @@ function onWindowResize() {
 
 
 
-//EVENT LISTENERS FOR TIMER FUNCTIONALITY
 
+
+//EVENT LISTENERS FOR TIMER FUNCTIONALITY
 
 // Function to reset all buttons and set the play button as active
 function resetButtons() {
@@ -310,6 +271,7 @@ document.getElementById('fastforward').addEventListener('click', () => {
   timeParams.timeStep = 1000;
 });
 
+
 var dropdown = document.getElementsByClassName("dropdown-btn");
 var i;
 
@@ -329,7 +291,7 @@ for (i = 0; i < dropdown.length; i++) {
 //SLIDER STEPS
 const slider = document.getElementById("mySlider");
 const output = document.getElementById("sliderValue");
-const steps = [1, 10, 100, 1000, 10000]; // Define your custom steps here
+const steps = [1, 10, 100, 1000, 10000, 100000]; // Define your custom steps here
 
 slider.oninput = function() {
     output.textContent = steps[this.value];
@@ -339,6 +301,13 @@ slider.oninput = function() {
 output.textContent = steps[slider.value];
 
 
+//event listener
+slider.addEventListener("input", function() {
+  // Update the displayed value
+  output.textContent = steps[this.value];
+  // Example: Update timeParams.timeStep with the new slider value
+  timeParams.timeStep = steps[this.value];
+});
 
 // Function to center the camera on a planet and update orbit controls target
 function centerCameraOnPlanet(planetPosition) {
@@ -376,6 +345,3 @@ function populateDropdown() {
 
 // Call the function to populate the dropdown
 populateDropdown();
-
-
-
