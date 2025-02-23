@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ExoAtlas Explorer</title>
+  <style>
+    body {
+      margin: 0;
+	  padding: 0;
+	  overflow: hidden;
+    }
+
+	/*ANIMATION MENU*/
+
+	#resetmenu {
+		position: absolute;
+		bottom: 15px;
+		padding-left: 10px;
+		width: 100%;
+		text-align: center;
+	}
+
+	#resetmenu button {
+		color: rgba(127,255,255,0.75);
+		background: transparent;
+		text-align: center;
+		outline: 1px solid rgba(127,255,255,0.75);
+		border: 0px;
+		padding: 0px 5px;
+		font-size: 18px;
+		cursor: pointer;
+		justify-content: center; /* Center items horizontally */
+		align-items: center; /* Center items vertically */
+	}
+
+	#resetmenu button:hover {
+		background-color: rgba(0,255,255,0.5);
+	}
+
+	#resetmenu button:active {
+		color: #000000;
+		background-color: rgba(0,255,255,0.75);
+	}
+
+
+
+
+
+
+	
+/*SLIDER MENU*/
+.slider-container {
+	position: absolute;
+    text-align: center;
+	background: transparent;
+	padding-left: 15px;
+	bottom: 105px;
+	display: flex;
+	font-family: Arial, sans-serif;
+	align-items: center;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+	width: 200px;
+    border-radius: 5px;
+    background: #dddddd28;
+    outline: none;
+    opacity: 0.75;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+	margin-right: 10px; /*Adds margin to the right before text value*/
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(127,255,255,1);
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(127,255,255,1);
+    cursor: pointer;
+}
+
+.slider-value {
+    margin: 0;
+    color: rgba(127,255,255,1); /* Change this to your desired text color */
+}
+
+.slider-value span {
+    color: rgba(127,255,255,1); /* Change this to your desired span color */
+}
+
+
+
+
+
+
+
+/*PLAY MENU*/
+#playmenu {
+	position: absolute;
+	bottom: 45px;
+	padding-left: 15px;
+	width: 100%;
+	text-align: left;
+	justify-content: center; /* Center items horizontally */
+	align-items: center; /* Center items vertically */
+	align-self: center;
+}
+
+#playmenu button {
+	color: rgba(127,255,255,0.75);
+	background: transparent;
+	text-align: center;
+	outline: 1px solid rgba(127,255,255,0.75);
+	border: 0px;
+	padding: 0px 8px;
+	font-size: 36px;
+	cursor: pointer;
+	justify-content: center; /* Center items horizontally */
+	align-items: center; /* Center items vertically */
+	align-self: center;
+	height: 50px;
+}
+
+#playmenu button:hover {
+	background-color: rgba(0,255,255,0.5);
+}
+
+#playmenu button:active {
+	color: #000000;
+	background-color: rgba(0,255,255,0.75);
+}
+
+#playmenu button.active {
+	color: #000000;
+	background-color: rgba(0,255,255,0.75);
+}
+
+
+/*TIMER DISPLAY*/
+
+#timer {
+	position: absolute;
+	bottom: 5px;
+	padding-left: 15px;
+	width: 25%;
+	text-align: left;
+	color: rgba(127,255,255,0.75);
+	font-size: 30px;
+	font-family: Arial, sans-serif;
+	background: transparent;
+}
+
+	/*----------OBJECT MENU----------*/
+	.objectnav {
+	height: 20%;
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	top: 10px;
+	right: 15px;
+	font-family: Arial, sans-serif;
+	background-color: rgba(38,38,38,0.5);
+	overflow-x: hidden;
+	padding-top: 20px;
+	outline: solid;
+	outline-width: 2px; 
+	outline-color: rgba(127,255,255,0.75);
+	}
+
+	/* Style the sidenav links and the dropdown button */
+	.objectnav a, .dropdown-btn {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 20px;
+	color: rgba(127,255,255,0.75);
+	background: transparent;
+	display: block;
+	border: none;
+	background: none;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	}
+
+	/* On mouse-over */
+	.objectnav a:hover, .dropdown-btn:hover {
+	color: #f1f1f1;
+	}
+
+
+	/* Add an active class to the active dropdown button */
+	.active {
+	background: transparent;
+	color: white;
+	}
+
+	/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+	.dropdown-container {
+	display: none;
+	background: transparent;
+	padding-left: 30px;
+	}
+
+	/* Caret icon */
+	.dropdown-btn::after {
+	content: '\25BC'; /* Unicode for downward caret */
+	font-size: 16px;
+	color: rgba(127,255,255,0.75);
+	position: absolute;
+	right: 16px;
+    }
+
+    .dropdown-btn.active::after {
+	content: '\25B2'; /* Unicode for upward caret */
+    }
+
+
+    .checkmark {
+      font-size: 18px; /* Change font size */
+      color: rgba(127,255,255,0.75); /* Change font color */
+      padding-left: 5px; /* Optional: add padding for better spacing */
+    }
+
+
+
+
+
+	/*----------DISPLAY MENU----------*/
+	.displaynav {
+	height: 20%;
+	width: 200px;
+	position: fixed;
+	z-index: 1;
+	bottom: 10px;
+	right: 15px;
+	font-family: Arial, sans-serif;
+	background-color: rgba(38,38,38,0.5);
+	overflow-x: hidden;
+	padding-top: 10px;
+	outline: solid;
+	outline-width: 2px; 
+	outline-color: rgba(127,255,255,0.75);
+	}
+
+	/* Style the sidenav links and the dropdown button */
+	.displaynav a, .dropdown-btn {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 20px;
+	color: rgba(127,255,255,0.75);
+	background: transparent;
+	display: block;
+	border: none;
+	background: none;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	}
+
+
+	/* Style the sidenav links and the dropdown button */
+	.displaynav P {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 20px;
+	color: rgba(127,255,255,0.75);
+	background: transparent;
+	display: block;
+	border: none;
+	background: none;
+	width: 100%;
+	text-align: left;
+	cursor: default;
+	}
+
+	/* On mouse-over */
+	.displaynav a:hover, .dropdown-btn:hover {
+	color: #f1f1f1;
+	}
+
+
+	/* Add an active class to the active dropdown button */
+	.active {
+	background: transparent;
+	color: white;
+	}
+
+	/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+	.dropdown-container {
+	display: none;
+	background: transparent;
+	padding-left: 30px;
+	}
+
+	/* Caret icon */
+	.dropdown-btn::after {
+	content: '\25BC'; /* Unicode for downward caret */
+	font-size: 16px;
+	color: rgba(127,255,255,0.75);
+	position: absolute;
+	right: 16px;
+    }
+
+    .dropdown-btn.active::after {
+	content: '\25B2'; /* Unicode for upward caret */
+    }
+
+
+    .checkmark {
+      font-size: 18px; /* Change font size */
+      color: rgba(127,255,255,0.75); /* Change font color */
+      padding-left: 5px; /* Optional: add padding for better spacing */
+    }
+
+  </style>
+  
+
+
+
+  
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+        "jsm/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+      }
+    }
+  </script>
+  
+</head>
+<body>
+
+
+<!--OBJECT MENU-->
+<div class="objectnav">
+  <button class="dropdown-btn">PLANETS</button>
+  <div class="dropdown-container-planets">
+    <!-- Planet links will be dynamically populated here -->
+  </div>
+  <button class="dropdown-btn">ASTEROIDS</button>
+  <div class="dropdown-container-asteroids">
+    <a href="#">Asteroid1</a>
+    <a href="#">Asteroid2</a>
+    <a href="#">Asteroid3</a>
+  </div>
+</div>
+
+
+<!-- DISPLAY MENU -->
+<div class="displaynav">
+	<p>DISPLAY</p>
+	<button class="dropdown-btn">SHOW/HIDE</button>
+	<div class="dropdown-container-settings">
+	  <div class="checkbox-container">
+		<input type="checkbox" id="labelsCheckbox" checked="checked">
+		<span class="checkmark">Labels</span>
+		  </div>
+	  <div class="checkbox-container">
+		<input type="checkbox" checked="checked">
+		<span class="checkmark">Sun</span>
+	  </div>
+	  <div class="checkbox-container">
+		<input type="checkbox" checked="checked">
+		<span class="checkmark">Planets</span>
+	  </div>
+	  <div class="checkbox-container">
+		<input type="checkbox" checked="checked">
+		<span class="checkmark">Orbits</span>
+	  </div>
+	</div>
+  </div>
+
+
+<!--ANIMATION MENU-->
+	<div id="container"></div>
+	<div id="resetmenu">
+		<button id="resetbutton">RESET TO LIVE VIEW</button>
+	</div> 
+
+
+
+<!--SLIDER-->
+    <div class="slider-container">
+        <input type="range" min="0" max="6" value="0" class="slider" id="mySlider">
+        <p class="slider-value"><span id="sliderValue">1</span>x</p> <!--INSERT TEXT HERE FOR SLIDER-->
+    </div>
+
+
+
+
+  <div id="playmenu">
+    <button class="timebutton" id="rewind">⏮</button>
+	<button class="timebutton" id="reverse">⏴</button>
+	<button class="timebutton" id="pause">⏸</button>
+    <button class="timebutton" id="play">⏵</button>
+    <button class="timebutton" id="fastforward">⏭</button>
+  </div> 
+
+
+  <div id="container"></div>
+  <div id="timer"></div> 
+  
+<script type="module" src="index.js"></script>
+</body>
+</html>
