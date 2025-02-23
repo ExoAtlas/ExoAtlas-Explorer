@@ -65,6 +65,7 @@ export function calculateStateVector(a, e, i, Ω, ω, M0, t0, t) {
     
     return {
         position: new THREE.Vector3(y, z, x),
+        // position: new THREE.Vector3(x, y, z),
         velocity: new THREE.Vector3(v_y, v_z, v_x)
     };
 }

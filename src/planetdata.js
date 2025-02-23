@@ -1,5 +1,8 @@
 // planetdata.js
 
+// Define J2000 epoch timestamp in milliseconds
+const J2000_TIMESTAMP = new Date(Date.UTC(2000, 0, 1, 12, 0, 0)).getTime();
+
 export const planetsData = [
     {
         name: 'MERCURY',
@@ -12,7 +15,7 @@ export const planetsData = [
             Ω: 0.843546774485, // Longitude of ascending node in radians
             ω: 1.3518700794, // Argument of perihelion in radians
             M0: 3.050765719, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 
@@ -28,7 +31,7 @@ export const planetsData = [
             Ω: 1.3383305132, // Longitude of ascending node in radians
             ω: 2.2956835759542, // Argument of perihelion in radians
             M0: 0.874671755, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 
@@ -44,7 +47,7 @@ export const planetsData = [
             Ω: -0.196535243881, // Longitude of ascending node in radians
             ω: 1.79676742117, // Argument of perihelion in radians
             M0: 6.259047404, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 
@@ -60,7 +63,7 @@ export const planetsData = [
             Ω: 0.8653087613296, // Longitude of ascending node in radians
             ω: 5.86501907915, // Argument of perihelion in radians
             M0: 0.338803314, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 
@@ -76,7 +79,7 @@ export const planetsData = [
             Ω: 1.75503590062, // Longitude of ascending node in radians
             ω: 0.25750325984, // Argument of perihelion in radians
             M0: 0.34296644826, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 
@@ -92,7 +95,7 @@ export const planetsData = [
             Ω: 1.98470185703, // Longitude of ascending node in radians
             ω: 1.613241687, // Argument of perihelion in radians
             M0: 5.53211777, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 
@@ -108,7 +111,7 @@ export const planetsData = [
             Ω: 1.2955558094, // Longitude of ascending node in radians
             ω: 2.983888891162, // Argument of perihelion in radians
             M0: 2.495035432, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 
@@ -124,7 +127,7 @@ export const planetsData = [
             Ω: 2.29897718679, // Longitude of ascending node in radians
             ω: 0.78489812656, // Argument of perihelion in radians
             M0: 4.673415778, // Mean anomaly at epoch in radians
-            t0: 0, // J2000 epoch time in seconds
+            t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
         //rotationalspeed: 4, 

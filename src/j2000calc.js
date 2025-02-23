@@ -9,18 +9,4 @@ export function ΔJ2000(t = new Date().getTime()) {
     return daysSinceJ2000;
 }
 
-//function ΔJ2000rounded() {
-    //const currentJ2000Fraction = ΔJ2000();
-    //const roundedJ2000FractionEpoch = currentJ2000Fraction.toFixed(5);    
-    // Log the value to the console
-    //console.log("Current J2000 Epoch Fraction: " + roundedJ2000FractionEpoch);
-    //return roundedJ2000FractionEpoch
-//}
-
-// Automatically update J2000 epoch fraction on page load
-//updateJ2000Epoch();
-
-
-//ΔJ2000()
-
 
