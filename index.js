@@ -11,7 +11,7 @@ import { calculateOrbitalPeriod } from "./src/exoastro.js";
 import { createOrbitTrailSegment } from './src/orbittrailsegment.js';
 import { ΔJ2000 } from './src/j2000calc.js';
 import { CSS2DRenderer, CSS2DObject } from "jsm/renderers/CSS2DRenderer.js";
-import { planetsData } from "./src/planetdata.js";
+import { planetsData } from "./src/planetData.js";
 import { cometData } from "./src/cometData.js";
 import { moonData } from "./src/moonData.js";
 import { exoplanetData } from "./src/exoplanetData.js";
