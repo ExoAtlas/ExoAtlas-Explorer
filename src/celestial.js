@@ -5,7 +5,7 @@ import { ΔJ2000 } from './j2000calc.js';
 
 export function createPlanet(params) {
     const { name, radius, texture, position, rotationalspeed, scene, loader } = params;
-    const planetgeometry = new THREE.SphereGeometry(radius, 64, 360);
+    const planetgeometry = new THREE.SphereGeometry(radius, 64, 360); //scaled down by 1000
     // Use a plain white material initially
     const planetmaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff
@@ -24,7 +24,6 @@ export function createPlanet(params) {
 
 export function createOrbitPath(planetData, trailPercentage, scene) {
     const { a, e, i, Ω, ω, M0, t0 } = planetData.keplerianElements;
-    
 
     // Use the current simulation time
     const currentTime = new Date();

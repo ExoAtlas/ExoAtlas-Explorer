@@ -16,11 +16,16 @@ export function keplerEquationSolver(M, e, tol = 1e-6) {
 
 export function calculateOrbitalPeriod(a) {
     const μ = 132712440018;  // Heliocentric gravitational parameter, km^3/s
-    const period = 2 * Math.PI * Math.sqrt(Math.pow(a, 3) / μ); // Period in seconds
+    const period = 2 * Math.PI * Math.sqrt(Math.pow(a* 149597870.7, 3) / μ); // Period in seconds
     return period;
 }
 
 export function calculateStateVector(a, e, i, Ω, ω, M0, t0, t) {
+    a = a * 149597870.7;  // AU to km
+    i = THREE.MathUtils.degToRad(i);
+    Ω = THREE.MathUtils.degToRad(Ω);
+    ω = THREE.MathUtils.degToRad(ω);
+    M0 = THREE.MathUtils.degToRad(M0);
     const μ = 132712440018;  // Heliocentric gravitational parameter, km^3/s
     const n = Math.sqrt(μ / Math.pow(a, 3));  // Mean motion, rad/s
     
@@ -50,9 +55,9 @@ export function calculateStateVector(a, e, i, Ω, ω, M0, t0, t) {
     const sin_i = Math.sin(i);
     
     // Position in inertial coordinates
-    const x = ((cos_Omega * cos_omega - sin_Omega * sin_omega * cos_i) * x_prime + (-cos_Omega * sin_omega - sin_Omega * cos_omega * cos_i) * y_prime) / 1000;
-    const y = ((sin_Omega * cos_omega + cos_Omega * sin_omega * cos_i) * x_prime + (-sin_Omega * sin_omega + cos_Omega * cos_omega * cos_i) * y_prime) / 1000;
-    const z = ((sin_omega * sin_i) * x_prime + (cos_omega * sin_i) * y_prime) / 1000;
+    const x = ((cos_Omega * cos_omega - sin_Omega * sin_omega * cos_i) * x_prime + (-cos_Omega * sin_omega - sin_Omega * cos_omega * cos_i) * y_prime)/1000;
+    const y = ((sin_Omega * cos_omega + cos_Omega * sin_omega * cos_i) * x_prime + (-sin_Omega * sin_omega + cos_Omega * cos_omega * cos_i) * y_prime)/1000;
+    const z = ((sin_omega * sin_i) * x_prime + (cos_omega * sin_i) * y_prime)/1000;
     
     // Velocity in orbital plane
     const v_x_prime = -Math.sqrt(μ / a) * Math.sin(E) / (1 - e * Math.cos(E));
