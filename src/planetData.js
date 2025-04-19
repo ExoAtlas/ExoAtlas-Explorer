@@ -15,7 +15,7 @@ export const planetsData = [
             i: 7.00487, // Inclination in deg
             Ω: 48.33167, // Longitude of ascending node in deg
             ω: 77.45645, // Argument of perihelion in deg
-            M0: 252.25084, // Mean anomaly at epoch in deg
+            M0: 126.46272, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
@@ -32,7 +32,7 @@ export const planetsData = [
             i: 3.39471, // Inclination in deg
             Ω: 76.68069, // Longitude of ascending node in deg
             ω: 131.53298, // Argument of perihelion in deg
-            M0: 181.97973, // Mean anomaly at epoch in deg
+            M0: 333.76606, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in deg
         },
         position: [],  // y, z, x
@@ -49,7 +49,7 @@ export const planetsData = [
             i: 0.00005, // Inclination in deg
             Ω: -11.26064, // Longitude of ascending node in deg
             ω: 102.94719, // Argument of perihelion in deg
-            M0: 100.46435, // Mean anomaly at epoch in deg
+            M0: 8.7778, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in deg
         },
         position: [],  // y, z, x
@@ -66,7 +66,7 @@ export const planetsData = [
             i: 1.85061, // Inclination in deg
             Ω: 49.57854, // Longitude of ascending node in deg
             ω: 336.04084, // Argument of perihelion in deg
-            M0: 355.45332, // Mean anomaly at epoch in deg
+            M0: 329.83394, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in deg
         },
         position: [],  // y, z, x
@@ -83,7 +83,7 @@ export const planetsData = [
             i: 1.30530, // Inclination in deg
             Ω: 100.55615, // Longitude of ascending node in deg
             ω: 14.75385, // Argument of perihelion in deg
-            M0: 34.40438, // Mean anomaly at epoch in deg
+            M0: 279.09438, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
@@ -100,7 +100,7 @@ export const planetsData = [
             i: 2.48446, // Inclination in deg
             Ω: 113.71504, // Longitude of ascending node in deg
             ω: 92.43194, // Argument of perihelion in deg
-            M0: 49.94432, // Mean anomaly at epoch in deg
+            M0: 203.79734, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
@@ -117,7 +117,7 @@ export const planetsData = [
             i: 0.76986, // Inclination in deg
             Ω: 74.22988, // Longitude of ascending node in deg
             ω: 170.96424, // Argument of perihelion in deg
-            M0: 313.23218, // Mean anomaly at epoch in deg
+            M0: 68.03806, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
@@ -134,7 +134,7 @@ export const planetsData = [
             i: 1.76917, // Inclination in deg
             Ω: 131.72169, // Longitude of ascending node in deg
             ω: 44.97135, // Argument of perihelion in deg
-            M0: 304.88003, // Mean anomaly at epoch in deg
+            M0: 128.18699, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
@@ -151,7 +151,7 @@ export const planetsData = [
             i: 17.14175, // Inclination in deg
             Ω: 110.30347, // Longitude of ascending node in deg
             ω: 224.06676, // Argument of perihelion in deg
-            M0: 238.92881, // Mean anomaly at epoch in deg
+            M0: 264.55858, // Mean anomaly at epoch in deg
             t0: J2000_TIMESTAMP, // J2000 epoch time in seconds
         },
         position: [],  // y, z, x
