@@ -4,48 +4,48 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ExoAtlas Explorer</title>
-  <style>
+ 
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+ <style>
     body {
       margin: 0;
-	  padding: 0;
-	  overflow: hidden;
+	    padding: 0;
+	    font-family: Arial, sans-serif;
+	    overflow: hidden;
+      background-color: #000;
+      color: #ccc;
     }
 
-	/*ANIMATION MENU*/
+/*RESET MENU*/
+#resetmenu {
+	position: absolute;
+	bottom: 15px;
+	width: 100%;
+	text-align: center;
+}
 
-	#resetmenu {
-		position: absolute;
-		bottom: 15px;
-		padding-left: 10px;
-		width: 100%;
-		text-align: center;
-	}
+#resetmenu button {
+	color: rgba(255,255,255,1);
+	background: transparent;
+	text-align: center;
+	outline: 1px solid rgba(255,255,255,1);
+	border: 0px;
+	padding: 0px 5px;
+	font-size: 18px;
+	cursor: pointer;
+	justify-content: center; /* Center items horizontally */
+	align-items: center; /* Center items vertically */
+}
 
-	#resetmenu button {
-		color: rgba(127,255,255,0.75);
-		background: transparent;
-		text-align: center;
-		outline: 1px solid rgba(127,255,255,0.75);
-		border: 0px;
-		padding: 0px 5px;
-		font-size: 18px;
-		cursor: pointer;
-		justify-content: center; /* Center items horizontally */
-		align-items: center; /* Center items vertically */
-	}
+#resetmenu button:hover {
+	background-color: rgba(100, 100, 100, 0.5);
+}
 
-	#resetmenu button:hover {
-		background-color: rgba(0,255,255,0.5);
-	}
-
-	#resetmenu button:active {
-		color: #000000;
-		background-color: rgba(0,255,255,0.75);
-	}
-
-
-
-
+#resetmenu button:active {
+	color: #000000;
+	background-color: rgba(100, 100, 100, 0.75);
+}
 
 
 	
@@ -54,7 +54,7 @@
 	position: absolute;
     text-align: center;
 	background: transparent;
-	padding-left: 15px;
+  left: 15px;
 	bottom: 105px;
 	display: flex;
 	font-family: Arial, sans-serif;
@@ -66,14 +66,14 @@
     appearance: none;
     width: 100%;
     height: 8px;
-	width: 200px;
+	  width: 200px;
     border-radius: 5px;
     background: #dddddd28;
     outline: none;
     opacity: 0.75;
     -webkit-transition: .2s;
     transition: opacity .2s;
-	margin-right: 10px; /*Adds margin to the right before text value*/
+	  margin-right: 10px; /*Adds margin to the right before text value*/
 }
 
 .slider:hover {
@@ -86,7 +86,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(127,255,255,1);
+    background: rgba(255,255,255,1);
     cursor: pointer;
 }
 
@@ -94,17 +94,17 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(127,255,255,1);
+    background: rgba(255,255,255,1);
     cursor: pointer;
 }
 
 .slider-value {
     margin: 0;
-    color: rgba(127,255,255,1); /* Change this to your desired text color */
+    color: rgba(255,255,255,1); /* Change this to your desired text color */
 }
 
 .slider-value span {
-    color: rgba(127,255,255,1); /* Change this to your desired span color */
+    color: rgba(255,255,255,1); /* Change this to your desired span color */
 }
 
 
@@ -117,7 +117,7 @@
 #playmenu {
 	position: absolute;
 	bottom: 45px;
-	padding-left: 15px;
+  left: 15px;
 	width: 100%;
 	text-align: left;
 	justify-content: center; /* Center items horizontally */
@@ -126,10 +126,10 @@
 }
 
 #playmenu button {
-	color: rgba(127,255,255,0.75);
+	color: rgba(255,255,255,1);
 	background: transparent;
 	text-align: center;
-	outline: 1px solid rgba(127,255,255,0.75);
+	outline: 1px solid rgba(255,255,255,1);
 	border: 0px;
 	padding: 0px 8px;
 	font-size: 36px;
@@ -141,197 +141,175 @@
 }
 
 #playmenu button:hover {
-	background-color: rgba(0,255,255,0.5);
+	background-color: rgba(100, 100, 100, 0.5);
 }
 
 #playmenu button:active {
 	color: #000000;
-	background-color: rgba(0,255,255,0.75);
+	background-color: rgba(100, 100, 100, 0.75);
 }
 
 #playmenu button.active {
 	color: #000000;
-	background-color: rgba(0,255,255,0.75);
+	background-color: rgba(100, 100, 100, 0.75);
 }
 
 
 /*TIMER DISPLAY*/
-
 #timer {
 	position: absolute;
 	bottom: 5px;
-	padding-left: 15px;
-	width: 25%;
+  left: 15px;
+	width: 30%;
 	text-align: left;
-	color: rgba(127,255,255,0.75);
+	color: rgba(255,255,255,1);
 	font-size: 30px;
 	font-family: Arial, sans-serif;
 	background: transparent;
 }
 
-	/*----------OBJECT MENU----------*/
-	.objectnav {
-	height: 20%;
-	width: 200px;
-	position: fixed;
-	z-index: 1;
-	top: 10px;
-	right: 15px;
-	font-family: Arial, sans-serif;
-	background-color: rgba(38,38,38,0.5);
-	overflow-x: hidden;
-	padding-top: 20px;
-	outline: solid;
-	outline-width: 2px; 
-	outline-color: rgba(127,255,255,0.75);
-	}
+/*----------OBJECT MENU----------*/
+#sidePanel {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 500px;
+  height: 680px;
+  background: rgba(15, 15, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  color: #d3d3d3;
+}
 
-	/* Style the sidenav links and the dropdown button */
-	.objectnav a, .dropdown-btn {
-	padding: 6px 8px 6px 16px;
-	text-decoration: none;
-	font-size: 20px;
-	color: rgba(127,255,255,0.75);
-	background: transparent;
-	display: block;
-	border: none;
-	background: none;
-	width: 100%;
-	text-align: left;
-	cursor: pointer;
-	}
+.tabs-bar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  gap: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  z-index: 1;
+}
 
-	/* On mouse-over */
-	.objectnav a:hover, .dropdown-btn:hover {
-	color: #f1f1f1;
-	}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
+.tab-button {
+  padding: 6px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(30,30,40,0.8);
+  border-radius: 4px;
+  cursor: pointer;
+  color: #ccc;
+}
 
-	/* Add an active class to the active dropdown button */
-	.active {
-	background: transparent;
-	color: white;
-	}
+.tab-button.active {
+  background-color: #E0E0E0;
+  color: black;
+}
 
-	/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-	.dropdown-container {
-	display: none;
-	background: transparent;
-	padding-left: 30px;
-	}
-
-	/* Caret icon */
-	.dropdown-btn::after {
-	content: '\25BC'; /* Unicode for downward caret */
-	font-size: 16px;
-	color: rgba(127,255,255,0.75);
-	position: absolute;
-	right: 16px;
-    }
-
-    .dropdown-btn.active::after {
-	content: '\25B2'; /* Unicode for upward caret */
-    }
+.datatable-body {
+  flex: 1;
+  padding: 5px 5px;
+  max-height: 50vh;
+  font-size: 14px;
+  overflow-y: auto;
+}
 
 
-    .checkmark {
-      font-size: 18px; /* Change font size */
-      color: rgba(127,255,255,0.75); /* Change font color */
-      padding-left: 5px; /* Optional: add padding for better spacing */
-    }
+#satelliteTable_filter label,
+#satelliteTable_length label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+#satelliteTable_filter input,
+#satelliteTable_length select {
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: #111;
+  border: 1px solid #666;
+  color: #E0E0E0;
+}
+
+.datatable-controls-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+  width: 100%;
+}
+
+#satelliteTable {
+  width: 100% !important;
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: #ccc;
+  background-color: transparent;
+}
+
+#satelliteTable thead th {
+  position: sticky;
+  top: -5px;
+  font-size: 16px;
+  z-index: 1;
+  background: rgba(30, 30, 40, 0.9);
+  border: 1px solid #444;
+  text-align: left;
+  color: #E0E0E0;
+  text-transform: uppercase;
+}
+
+#satelliteTable td {
+  padding: 10px;
+  border: 1px solid #444;
+  background: rgba(30, 30, 40, 0.6);
+  text-align: left;
+}
+
+#satelliteTable tbody tr:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+input[type="checkbox"] {
+  accent-color: #E0E0E0;
+  width: 18px;
+  height: 18px;
+}
+
+.label {
+  color: #E0E0E0;
+  font-size: 1rem;
+}
+
+
+
+
+#satelliteTable td.text-center,
+#satelliteTable th.text-center {
+  text-align: center;
+  vertical-align: middle;
+}
 
 
 
 
 
-	/*----------DISPLAY MENU----------*/
-	.displaynav {
-	height: 20%;
-	width: 200px;
-	position: fixed;
-	z-index: 1;
-	bottom: 10px;
-	right: 15px;
-	font-family: Arial, sans-serif;
-	background-color: rgba(38,38,38,0.5);
-	overflow-x: hidden;
-	padding-top: 10px;
-	outline: solid;
-	outline-width: 2px; 
-	outline-color: rgba(127,255,255,0.75);
-	}
-
-	/* Style the sidenav links and the dropdown button */
-	.displaynav a, .dropdown-btn {
-	padding: 6px 8px 6px 16px;
-	text-decoration: none;
-	font-size: 20px;
-	color: rgba(127,255,255,0.75);
-	background: transparent;
-	display: block;
-	border: none;
-	background: none;
-	width: 100%;
-	text-align: left;
-	cursor: pointer;
-	}
 
 
-	/* Style the sidenav links and the dropdown button */
-	.displaynav P {
-	padding: 6px 8px 6px 16px;
-	text-decoration: none;
-	font-size: 20px;
-	color: rgba(127,255,255,0.75);
-	background: transparent;
-	display: block;
-	border: none;
-	background: none;
-	width: 100%;
-	text-align: left;
-	cursor: default;
-	}
-
-	/* On mouse-over */
-	.displaynav a:hover, .dropdown-btn:hover {
-	color: #f1f1f1;
-	}
 
 
-	/* Add an active class to the active dropdown button */
-	.active {
-	background: transparent;
-	color: white;
-	}
-
-	/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-	.dropdown-container {
-	display: none;
-	background: transparent;
-	padding-left: 30px;
-	}
-
-	/* Caret icon */
-	.dropdown-btn::after {
-	content: '\25BC'; /* Unicode for downward caret */
-	font-size: 16px;
-	color: rgba(127,255,255,0.75);
-	position: absolute;
-	right: 16px;
-    }
-
-    .dropdown-btn.active::after {
-	content: '\25B2'; /* Unicode for upward caret */
-    }
-
-
-    .checkmark {
-      font-size: 18px; /* Change font size */
-      color: rgba(127,255,255,0.75); /* Change font color */
-      padding-left: 5px; /* Optional: add padding for better spacing */
-    }
-
-  </style>
+</style>
   
 
 
@@ -351,44 +329,46 @@
 <body>
 
 
-<!--OBJECT MENU-->
-<div class="objectnav">
-  <button class="dropdown-btn">PLANETS</button>
-  <div class="dropdown-container-planets">
-    <!-- Planet links will be dynamically populated here -->
-  </div>
-  <button class="dropdown-btn">ASTEROIDS</button>
-  <div class="dropdown-container-asteroids">
-    <a href="#">Asteroid1</a>
-    <a href="#">Asteroid2</a>
-    <a href="#">Asteroid3</a>
-  </div>
+
+
+
+<!-- OBJECT MENU -->
+<div id="sidePanel">
+<div class="tabs-bar">
+	<div class="tabs">
+	<span class="tab-button active" data-filter="All">All</span>
+	<span class="tab-button" data-filter="Planet">Planets</span>
+	<span class="tab-button" data-filter="Moon">Moons</span>
+	<span class="tab-button" data-filter="Comet">Comets</span>
+	<span class="tab-button" data-filter="Asteroid">Asteroids</span>
+	<span class="tab-button" data-filter="Exoplanet">Exoplanets</span>
+	</div>
 </div>
 
+<div class="datatable-header">
+	<div id="satelliteTable_length"></div>
+	<div id="satelliteTable_filter"></div>
+</div>
 
-<!-- DISPLAY MENU -->
-<div class="displaynav">
-	<p>DISPLAY</p>
-	<button class="dropdown-btn">SHOW/HIDE</button>
-	<div class="dropdown-container-settings">
-	  <div class="checkbox-container">
-		<input type="checkbox" id="labelsCheckbox" checked="checked">
-		<span class="checkmark">Labels</span>
-		  </div>
-	  <div class="checkbox-container">
-		<input type="checkbox" checked="checked">
-		<span class="checkmark">Sun</span>
-	  </div>
-	  <div class="checkbox-container">
-		<input type="checkbox" checked="checked">
-		<span class="checkmark">Planets</span>
-	  </div>
-	  <div class="checkbox-container">
-		<input type="checkbox" checked="checked">
-		<span class="checkmark">Orbits</span>
-	  </div>
-	</div>
-  </div>
+<div class="datatable-body">
+	<table id="satelliteTable" class="display">
+	<thead>
+		<tr>
+		<th>ID</th>
+		<th>Object Name</th>
+		<th>View Body</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+	</table>
+</div>
+
+<div class="datatable-footer">
+	<div id="satelliteTable_info"></div>
+	<div id="satelliteTable_paginate"></div>
+</div>
+</div>
+
 
 
 <!--ANIMATION MENU-->
@@ -419,6 +399,9 @@
 
   <div id="container"></div>
   <div id="timer"></div> 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   
 <script type="module" src="index.js"></script>
 </body>
